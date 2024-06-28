@@ -71,7 +71,7 @@ void StreamServerComponent::accept() {
     socket->setblocking(false);
     std::string identifier = socket->getpeername();
     this->clients_.emplace_back(std::move(socket), identifier);
-    ESP_LOGD(TAG, "New client connected from %s", identifier.c_str());
+    ESP_LOGI(TAG, "New client connected from %s", identifier.c_str());
 }
 
 void StreamServerComponent::cleanup() {
@@ -99,7 +99,7 @@ void StreamServerComponent::write() {
             this->stream_->write_array(buf, len);
 		}
         if (len == 0) {
-            ESP_LOGD(TAG, "Client %s disconnected", client.identifier.c_str());
+            ESP_LOGI(TAG, "Client %s disconnected", client.identifier.c_str());
             client.disconnected = true;
             continue;
         }
